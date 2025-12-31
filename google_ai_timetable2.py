@@ -9,15 +9,11 @@ google_api_key = st.sidebar.text_input("Enter your Google API Key", type="passwo
 if not google_api_key:
     st.error("Please enter your Google API key to proceed.")
     st.stop()
-
-# Configure the Google Generative AI with the provided API key
 try:
     genai.configure(api_key=google_api_key)
 except Exception as e:
     st.error(f"Error configuring API key: {str(e)}")
     st.stop()
-
-# Function to list available models
 def list_available_models():
     try:
         models = genai.list_models()
@@ -27,17 +23,16 @@ def list_available_models():
     except Exception as e:
         st.error(f"Error listing models: {str(e)}")
 
-# Call the function to list models
 list_available_models()
 
-# Initialize the Google Generative AI model
+# Initializing the Google Generative AI model
 try:
-    model = genai.GenerativeModel('gemini-1.5-flash-latest')  # Use a valid model name
+    model = genai.GenerativeModel('gemini-1.5-flash-latest')  
 except Exception as e:
     st.error(f"Error initializing model: {str(e)}")
     st.warning("Falling back to a default model.")
     try:
-        model = genai.GenerativeModel('gemini-1.0-pro')  # Fallback to another valid model
+        model = genai.GenerativeModel('gemini-1.0-pro')  
     except Exception as e:
         st.error(f"Failed to initialize fallback model: {str(e)}")
         st.stop()
@@ -228,4 +223,5 @@ with st.container():
 # Run the app
 if __name__ == "__main__":
     st.write("To run this app, use the following command in your terminal:")
+
     st.code("streamlit run google_ai_timetable.py")
